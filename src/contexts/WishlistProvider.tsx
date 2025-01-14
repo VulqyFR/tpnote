@@ -5,6 +5,7 @@ interface WishlistContextType {
     wishlist: Movie[];
     addToWishlist: (movie: Movie) => void;
     removeFromWishlist: (movieId: number) => void;
+    isInWishlist: (movieId: number) => boolean;
 }
 
 const WISHLIST_STORAGE_KEY = 'movieWishlist';
@@ -26,7 +27,16 @@ export const WishlistProvider = ({
     }, [wishlist]);
 
     const addToWishlist = (movie: Movie) => {
-        setWishlist((prev) => [...prev, movie]);
+        setWishlist((prev) => {
+            if (prev.some((m) => m.id === movie.id)) {
+                return prev;
+            }
+            return [...prev, movie];
+        });
+    };
+
+    const isInWishlist = (movieId: number) => {
+        return wishlist.some((movie) => movie.id === movieId);
     };
 
     const removeFromWishlist = (movieId: number) => {
@@ -35,7 +45,12 @@ export const WishlistProvider = ({
 
     return (
         <WishlistContext.Provider
-            value={{ wishlist, addToWishlist, removeFromWishlist }}
+            value={{
+                wishlist,
+                addToWishlist,
+                removeFromWishlist,
+                isInWishlist,
+            }}
         >
             {children}
         </WishlistContext.Provider>

@@ -15,10 +15,12 @@ interface Cast {
 export const MovieDetail = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const { addToWishlist } = useWishlist();
+    const { addToWishlist, isInWishlist } = useWishlist();
     const [movie, setMovie] = useState<Movie | null>(null);
     const [cast, setCast] = useState<Cast[]>([]);
     const [similarMovies, setSimilarMovies] = useState<Movie[]>([]);
+
+    const isMovieInWishlist = movie ? isInWishlist(movie.id) : false;
 
     useEffect(() => {
         const fetchData = async () => {
@@ -77,9 +79,14 @@ export const MovieDetail = () => {
                     />
                     <button
                         onClick={() => addToWishlist(movie)}
-                        className={styles.wishlistButton}
+                        className={`${styles.wishlistButton} ${
+                            isMovieInWishlist ? styles.disabled : ''
+                        }`}
+                        disabled={isMovieInWishlist}
                     >
-                        Add to Wishlist
+                        {isMovieInWishlist
+                            ? 'Already in Wishlist'
+                            : 'Add to Wishlist'}
                     </button>
                 </div>
 

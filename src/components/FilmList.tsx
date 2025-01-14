@@ -13,7 +13,6 @@ export const FilmList = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(0);
     const [category, setCategory] = useState<Category>('popular');
-    const [selectedGenre, setSelectedGenre] = useState<string>('');
 
     const deferredSearch = useDeferredValue(searchQuery);
 
@@ -32,11 +31,6 @@ export const FilmList = () => {
                 if (query) {
                     url += `&query=${query}`;
                 }
-
-                if (selectedGenre) {
-                    url += `&with_genres=${selectedGenre}`;
-                }
-
                 const response = await fetch(url);
                 const data = await response.json();
                 setMovies(data.results);
@@ -47,13 +41,13 @@ export const FilmList = () => {
                 setIsLoading(false);
             }
         },
-        [category, selectedGenre]
+        [category]
     );
 
     useEffect(() => {
         setCurrentPage(1);
         fetchMovies(1, deferredSearch);
-    }, [deferredSearch, category, selectedGenre, fetchMovies]);
+    }, [deferredSearch, category, fetchMovies]);
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchQuery(e.target.value);
@@ -64,15 +58,6 @@ export const FilmList = () => {
         { id: 'now_playing', name: 'Now Playing' },
         { id: 'top_rated', name: 'Top Rated' },
         { id: 'upcoming', name: 'Upcoming' },
-    ];
-
-    const genres = [
-        { id: '28', name: 'Action' },
-        { id: '35', name: 'Comedy' },
-        { id: '18', name: 'Drama' },
-        { id: '27', name: 'Horror' },
-        { id: '10749', name: 'Romance' },
-        { id: '878', name: 'Science Fiction' },
     ];
 
     return (
@@ -98,19 +83,6 @@ export const FilmList = () => {
                         </button>
                     ))}
                 </div>
-
-                <select
-                    value={selectedGenre}
-                    onChange={(e) => setSelectedGenre(e.target.value)}
-                    className={styles.genreSelect}
-                >
-                    <option value="">All Genres</option>
-                    {genres.map((genre) => (
-                        <option key={genre.id} value={genre.id}>
-                            {genre.name}
-                        </option>
-                    ))}
-                </select>
             </div>
 
             {isLoading ? (
