@@ -1,0 +1,104 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal {
+    background: white;
+    border-radius: 8px;
+    padding: 24px;
+    max-width: 900px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.closeButton {
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    font-size: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.content {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+.poster {
+    width: 300px;
+    border-radius: 8px;
+}
+
+.info {
+    flex: 1;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 16px;
+}
+
+.metadata {
+    margin: 16px 0;
+}
+
+.wishlistButton {
+    background: #3b82f6;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.wishlistButton:hover {
+    background: #2563eb;
+}
+
+.castSection {
+    margin-top: 24px;
+}
+
+.castGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 16px;
+    margin-top: 16px;
+}
+
+.castMember {
+    text-align: center;
+}
+
+.castImage {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.actorName {
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+.character {
+    font-size: 0.9em;
+    color: #666;
+}

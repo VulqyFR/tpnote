@@ -1,18 +1,20 @@
 import { useEffect, useState } from 'react';
 import { Movie } from '../types/movie';
 import styles from './FilmList.module.css';
+import { useNavigate } from 'react-router';
 
 export const FilmList = () => {
+    const navigate = useNavigate();
     const [movies, setMovies] = useState<Movie[]>([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
-    const API_KEY = '9995ccfe9d6d3c53afa2cbc8530a25f5';
 
     useEffect(() => {
         const fetchMovies = async () => {
             try {
                 const response = await fetch(
-                    `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=1`
+                    `https://api.themoviedb.org/3/movie/popular?api_key=${
+                        import.meta.env.VITE_API_KEY
+                    }&language=en-US&page=1`
                 );
                 const data = await response.json();
                 setMovies(data.results);
@@ -46,7 +48,7 @@ export const FilmList = () => {
                                 ★ {movie.vote_average.toFixed(1)}/10
                             </span>
                             <button
-                                onClick={() => setSelectedMovie(movie)}
+                                onClick={() => navigate(`/movie/${movie.id}`)}
                                 className={styles.button}
                             >
                                 View Details
@@ -55,7 +57,6 @@ export const FilmList = () => {
                     </div>
                 ))}
             </div>
-            {selectedMovie && <></>}
         </>
     );
 };
