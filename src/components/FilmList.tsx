@@ -45,9 +45,12 @@ export const FilmList = () => {
     );
 
     useEffect(() => {
+        fetchMovies(currentPage, deferredSearch);
+    }, [currentPage, deferredSearch, category, fetchMovies]);
+
+    useEffect(() => {
         setCurrentPage(1);
-        fetchMovies(1, deferredSearch);
-    }, [deferredSearch, category, fetchMovies]);
+    }, [deferredSearch, category]);
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchQuery(e.target.value);

@@ -1,16 +1,22 @@
 import { useWishlist } from '../contexts/WishlistProvider';
-import styles from './FilmList.module.css';
+import styles from './WishList.module.css';
 
 const Wishlist = () => {
     const { wishlist, removeFromWishlist } = useWishlist();
 
     if (wishlist.length === 0) {
-        return <div>Your wishlist is empty</div>;
+        return (
+            <div className={styles.wrapper}>
+                <h1 className={styles.title}>Your wishlist is empty</h1>
+            </div>
+        );
     }
 
     return (
-        <>
-            <h1>My Wishlist ({wishlist.length} movies)</h1>
+        <div className={styles.wrapper}>
+            <h1 className={styles.title}>
+                My Wishlist ({wishlist.length} movies)
+            </h1>
             <div className={styles.container}>
                 {wishlist.map((movie) => (
                     <div key={movie.id} className={styles.card}>
@@ -35,7 +41,7 @@ const Wishlist = () => {
                     </div>
                 ))}
             </div>
-        </>
+        </div>
     );
 };
 
