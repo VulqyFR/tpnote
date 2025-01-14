@@ -7,6 +7,7 @@ import { useWishlist } from '../contexts/WishlistProvider';
 interface Cast {
     id: number;
     name: string;
+    description: string;
     character: string;
     profile_path: string | null;
 }
@@ -17,9 +18,10 @@ export const MovieDetail = () => {
     const { addToWishlist } = useWishlist();
     const [movie, setMovie] = useState<Movie | null>(null);
     const [cast, setCast] = useState<Cast[]>([]);
+    const [similarMovies, setSimilarMovies] = useState<Movie[]>([]);
 
     useEffect(() => {
-        const fetchMovieAndCast = async () => {
+        const fetchData = async () => {
             try {
                 const movieResponse = await fetch(
                     `https://api.themoviedb.org/3/movie/${id}?api_key=${
@@ -36,12 +38,20 @@ export const MovieDetail = () => {
                 );
                 const castData = await castResponse.json();
                 setCast(castData.cast.slice(0, 10));
+
+                const similarResponse = await fetch(
+                    `https://api.themoviedb.org/3/movie/${id}/similar?api_key=${
+                        import.meta.env.VITE_API_KEY
+                    }`
+                );
+                const similarData = await similarResponse.json();
+                setSimilarMovies(similarData.results.slice(0, 6));
             } catch (error) {
                 console.error('Error fetching movie data:', error);
             }
         };
 
-        fetchMovieAndCast();
+        fetchData();
     }, [id]);
 
     if (!movie) return <div>Loading...</div>;
@@ -49,12 +59,6 @@ export const MovieDetail = () => {
     return (
         <div className={styles.overlay}>
             <div className={styles.modal}>
-                <button
-                    className={styles.closeButton}
-                    onClick={() => navigate('/')}
-                >
-                    ×
-                </button>
                 <div className={styles.content}>
                     <img
                         src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
@@ -62,7 +66,16 @@ export const MovieDetail = () => {
                         className={styles.poster}
                     />
                     <div className={styles.info}>
-                        <h2 className={styles.title}>{movie.title}</h2>
+                        <div className={styles.top}>
+                            <h2 className={styles.title}>{movie.title}</h2>
+                            <button
+                                className={styles.closeButton}
+                                onClick={() => navigate('/')}
+                            >
+                                ×
+                            </button>
+                        </div>
+                        <p className={styles.description}>{movie.overview}</p>
                         <p className={styles.overview}>{movie.overview}</p>
                         <div className={styles.metadata}>
                             <p>Release Date: {movie.release_date}</p>
@@ -77,6 +90,27 @@ export const MovieDetail = () => {
                         >
                             Add to Wishlist
                         </button>
+                    </div>
+                </div>
+                <div className={styles.similarSection}>
+                    <h3>Similar Movies</h3>
+                    <div className={styles.similarGrid}>
+                        {similarMovies.map((movie) => (
+                            <div
+                                key={movie.id}
+                                className={styles.similarMovie}
+                                onClick={() => navigate(`/movie/${movie.id}`)}
+                            >
+                                <img
+                                    src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
+                                    alt={movie.title}
+                                    className={styles.similarImage}
+                                />
+                                <p className={styles.similarTitle}>
+                                    {movie.title}
+                                </p>
+                            </div>
+                        ))}
                     </div>
                 </div>
                 <div className={styles.castSection}>

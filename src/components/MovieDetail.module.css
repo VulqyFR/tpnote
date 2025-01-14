@@ -4,7 +4,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.75);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -12,74 +12,102 @@
 }
 
 .modal {
-    background: white;
-    border-radius: 8px;
-    padding: 24px;
-    max-width: 900px;
+    background-color: #212121;
+    border-radius: 1rem;
+    padding: 2rem;
     width: 90%;
+    max-width: 1200px;
     max-height: 90vh;
     overflow-y: auto;
     position: relative;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
 .closeButton {
-    position: absolute;
-    right: 16px;
-    top: 16px;
-    font-size: 24px;
     background: none;
     border: none;
+    font-size: 2rem;
+    color: #fff;
     cursor: pointer;
 }
 
 .content {
-    display: flex;
-    gap: 24px;
-    margin-bottom: 24px;
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 2rem;
 }
 
 .poster {
-    width: 300px;
-    border-radius: 8px;
+    width: 100%;
+    height: auto;
+    border-radius: 0.75rem;
+    transition: transform 0.3s ease;
+}
+
+.poster:hover {
+    transform: scale(1.02);
 }
 
 .info {
-    flex: 1;
+    color: #fff;
 }
 
 .title {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 16px;
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.overview {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
 }
 
 .metadata {
-    margin: 16px 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
 }
 
-.wishlistButton {
-    background: #3b82f6;
-    color: white;
-    padding: 8px 16px;
-    border-radius: 4px;
-    border: none;
+.similarSection {
+    margin-top: 2rem;
+}
+
+.similarGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.similarMovie {
+    border-radius: 0.75rem;
+    overflow: hidden;
+    transition: transform 0.2s ease;
     cursor: pointer;
-    transition: background 0.2s;
 }
 
-.wishlistButton:hover {
-    background: #2563eb;
+.similarMovie:hover {
+    transform: translateY(-4px);
+}
+
+.similarImage {
+    width: 100%;
+    height: auto;
+    border-radius: 0.75rem;
 }
 
 .castSection {
-    margin-top: 24px;
+    margin-top: 2rem;
 }
 
 .castGrid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-    gap: 16px;
-    margin-top: 16px;
+    gap: 1rem;
+    margin-top: 1rem;
 }
 
 .castMember {
@@ -91,14 +119,37 @@
     height: 100px;
     border-radius: 50%;
     object-fit: cover;
+    transition: transform 0.2s ease;
+}
+
+.castImage:hover {
+    transform: scale(1.05);
 }
 
 .actorName {
-    font-weight: bold;
-    margin-top: 8px;
+    font-weight: 600;
+    margin-top: 0.5rem;
+    color: #fff;
 }
 
 .character {
-    font-size: 0.9em;
-    color: #666;
+    font-size: 0.9rem;
+    color: #9ca3af;
+}
+
+@media (max-width: 768px) {
+    .content {
+        grid-template-columns: 1fr;
+    }
+    
+    .poster {
+        max-width: 300px;
+        margin: 0 auto;
+    }
+}
+
+.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
