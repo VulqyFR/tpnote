@@ -14,7 +14,7 @@ const Navbar = () => {
 
                 <div className={styles.links}>
                     <Link to="/" className={styles.link}>
-                        Popular Movies
+                        Movie list
                     </Link>
                     <Link to="/wishlist" className={styles.link}>
                         Wishlist ({wishlist.length})

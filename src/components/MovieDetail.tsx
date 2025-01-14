@@ -31,20 +31,20 @@ export const MovieDetail = () => {
                 const movieData = await movieResponse.json();
                 setMovie(movieData);
 
-                const castResponse = await fetch(
-                    `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${
-                        import.meta.env.VITE_API_KEY
-                    }`
-                );
-                const castData = await castResponse.json();
-                setCast(castData.cast.slice(0, 10));
+                const [castData, similarData] = await Promise.all([
+                    fetch(
+                        `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${
+                            import.meta.env.VITE_API_KEY
+                        }`
+                    ).then((res) => res.json()),
+                    fetch(
+                        `https://api.themoviedb.org/3/movie/${id}/similar?api_key=${
+                            import.meta.env.VITE_API_KEY
+                        }`
+                    ).then((res) => res.json()),
+                ]);
 
-                const similarResponse = await fetch(
-                    `https://api.themoviedb.org/3/movie/${id}/similar?api_key=${
-                        import.meta.env.VITE_API_KEY
-                    }`
-                );
-                const similarData = await similarResponse.json();
+                setCast(castData.cast.slice(0, 10));
                 setSimilarMovies(similarData.results.slice(0, 6));
             } catch (error) {
                 console.error('Error fetching movie data:', error);
@@ -57,85 +57,78 @@ export const MovieDetail = () => {
     if (!movie) return <div>Loading...</div>;
 
     return (
-        <div className={styles.overlay}>
-            <div className={styles.modal}>
-                <div className={styles.content}>
+        <div className={styles.container}>
+            <header className={styles.header}>
+                <button
+                    onClick={() => navigate(-1)}
+                    className={styles.backButton}
+                >
+                    ← Back
+                </button>
+                <h1 className={styles.title}>{movie.title}</h1>
+            </header>
+
+            <main className={styles.mainContent}>
+                <div className={styles.posterSection}>
                     <img
                         src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                         alt={movie.title}
                         className={styles.poster}
                     />
-                    <div className={styles.info}>
-                        <div className={styles.top}>
-                            <h2 className={styles.title}>{movie.title}</h2>
-                            <button
-                                className={styles.closeButton}
-                                onClick={() => navigate('/')}
-                            >
-                                ×
-                            </button>
+                    <button
+                        onClick={() => addToWishlist(movie)}
+                        className={styles.wishlistButton}
+                    >
+                        Add to Wishlist
+                    </button>
+                </div>
+
+                <div className={styles.info}>
+                    <div className={styles.metadata}>
+                        <span>★ {movie.vote_average.toFixed(1)}/10</span>
+                        <span>{movie.release_date}</span>
+                        <span>{movie.vote_count} votes</span>
+                    </div>
+                    <p className={styles.overview}>{movie.overview}</p>
+                </div>
+            </main>
+
+            <section className={styles.castSection}>
+                <h2>Main Cast</h2>
+                <div className={styles.castGrid}>
+                    {cast.map((actor) => (
+                        <div key={actor.id} className={styles.castMember}>
+                            <img
+                                src={`https://image.tmdb.org/t/p/w200${actor.profile_path}`}
+                                alt={actor.name}
+                                className={styles.castImage}
+                            />
+                            <h3>{actor.name}</h3>
+                            <p>{actor.character}</p>
                         </div>
-                        <p className={styles.description}>{movie.overview}</p>
-                        <p className={styles.overview}>{movie.overview}</p>
-                        <div className={styles.metadata}>
-                            <p>Release Date: {movie.release_date}</p>
-                            <p>Rating: ★ {movie.vote_average.toFixed(1)}/10</p>
-                            <p>Votes: {movie.vote_count}</p>
-                        </div>
-                        <button
-                            onClick={() => {
-                                addToWishlist(movie);
-                                navigate('/');
-                            }}
+                    ))}
+                </div>
+            </section>
+
+            <section className={styles.similarSection}>
+                <h2>Similar Movies</h2>
+                <div className={styles.similarGrid}>
+                    {similarMovies.map((movie) => (
+                        <div
+                            key={movie.id}
+                            className={styles.similarMovie}
+                            onClick={() => navigate(`/movie/${movie.id}`)}
                         >
-                            Add to Wishlist
-                        </button>
-                    </div>
+                            <img
+                                src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
+                                alt={movie.title}
+                                className={styles.similarImage}
+                            />
+                            <h3>{movie.title}</h3>
+                        </div>
+                    ))}
                 </div>
-                <div className={styles.similarSection}>
-                    <h3>Similar Movies</h3>
-                    <div className={styles.similarGrid}>
-                        {similarMovies.map((movie) => (
-                            <div
-                                key={movie.id}
-                                className={styles.similarMovie}
-                                onClick={() => navigate(`/movie/${movie.id}`)}
-                            >
-                                <img
-                                    src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
-                                    alt={movie.title}
-                                    className={styles.similarImage}
-                                />
-                                <p className={styles.similarTitle}>
-                                    {movie.title}
-                                </p>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-                <div className={styles.castSection}>
-                    <h3>Main Cast</h3>
-                    <div className={styles.castGrid}>
-                        {cast.map((actor) => (
-                            <div key={actor.id} className={styles.castMember}>
-                                <img
-                                    src={
-                                        actor.profile_path
-                                            ? `https://image.tmdb.org/t/p/w200${actor.profile_path}`
-                                            : '/placeholder.png'
-                                    }
-                                    alt={actor.name}
-                                    className={styles.castImage}
-                                />
-                                <p className={styles.actorName}>{actor.name}</p>
-                                <p className={styles.character}>
-                                    {actor.character}
-                                </p>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </div>
+            </section>
         </div>
     );
 };
