@@ -33,7 +33,8 @@ export const FilmList = () => {
     }
 
     return (
-        <>
+        <div className={styles.wrapper}>
+            <h1 className={styles.title}>Popular movies :</h1>
             <div className={styles.container}>
                 {movies.map((movie) => (
                     <div key={movie.id} className={styles.card}>
@@ -57,6 +58,6 @@ export const FilmList = () => {
                     </div>
                 ))}
             </div>
-        </>
+        </div>
     );
 };
