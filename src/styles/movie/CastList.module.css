@@ -1,0 +1,32 @@
+.castSection {
+    padding: 2rem;
+}
+
+.castGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.castMember {
+    text-align: center;
+}
+
+.castImage {
+    width: 150px;
+    height: 225px;
+    border-radius: 0.5rem;
+    object-fit: cover;
+}
+
+.castMember h3 {
+    margin: 0.5rem 0;
+    font-size: 1rem;
+    color: white;
+}
+
+.castMember p {
+    color: #9ca3af;
+    font-size: 0.875rem;
+}

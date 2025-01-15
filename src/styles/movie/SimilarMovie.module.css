@@ -1,0 +1,30 @@
+.similarSection {
+    padding: 2rem;
+}
+
+.similarGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.similarMovie {
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.similarMovie:hover {
+    transform: scale(1.05);
+}
+
+.similarImage {
+    width: 100%;
+    border-radius: 0.5rem;
+}
+
+.similarMovie h3 {
+    margin: 0.5rem 0;
+    font-size: 1rem;
+    color: white;
+}

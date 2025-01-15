@@ -8,7 +8,16 @@ export interface Movie {
     vote_count: number;
 }
 
-export interface ModalProps {
+export interface Cast {
+    id: number;
+    name: string;
+    description: string;
+    character: string;
+    profile_path: string | null;
+}
+
+export interface MovieDetailProps {
     movie: Movie;
-    onClose: () => void;
+    isInWishlist: boolean;
+    onAddToWishlist: (movie: Movie) => void;
 }

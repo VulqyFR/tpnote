@@ -1,0 +1,42 @@
+.mainContent {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 2rem;
+    padding: 2rem;
+}
+
+.posterSection {
+    position: relative;
+}
+
+.poster {
+    width: 100%;
+    border-radius: 1rem;
+}
+
+.info {
+    color: white;
+}
+
+.metadata {
+    display: flex;
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+.overview {
+    line-height: 1.6;
+}
+
+.wishlistButton {
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    border: none;
+    background-color: #3b82f6;
+    color: white;
+    cursor: pointer;
+}
