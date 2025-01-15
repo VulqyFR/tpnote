@@ -1,15 +1,13 @@
 import { useWishlist } from '../contexts/WishlistProvider';
-import styles from '../styles/WishList.module.css';
+import { WishlistMovieCard } from '../components/wishlist/WishlistMovieCard';
+import { EmptyWishlist } from '../components/wishlist/EmptyWishlist';
+import styles from '../styles/wishlist/Wishlist.module.css';
 
 const Wishlist = () => {
     const { wishlist, removeFromWishlist } = useWishlist();
 
     if (wishlist.length === 0) {
-        return (
-            <div className={styles.wrapper}>
-                <h1 className={styles.title}>Your wishlist is empty</h1>
-            </div>
-        );
+        return <EmptyWishlist />;
     }
 
     return (
@@ -19,26 +17,11 @@ const Wishlist = () => {
             </h1>
             <div className={styles.container}>
                 {wishlist.map((movie) => (
-                    <div key={movie.id} className={styles.card}>
-                        <img
-                            src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                            alt={movie.title}
-                            className={styles.image}
-                        />
-                        <h2 className={styles.title}>{movie.title}</h2>
-                        <div className={styles.footer}>
-                            <span className={styles.rating}>
-                                ★ {movie.vote_average.toFixed(1)}/10
-                            </span>
-                            <button
-                                onClick={() => removeFromWishlist(movie.id)}
-                                className={styles.button}
-                                style={{ backgroundColor: '#dc2626' }}
-                            >
-                                Remove
-                            </button>
-                        </div>
-                    </div>
+                    <WishlistMovieCard
+                        key={movie.id}
+                        movie={movie}
+                        onRemove={removeFromWishlist}
+                    />
                 ))}
             </div>
         </div>
