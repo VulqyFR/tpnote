@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import styles from './MovieDetail.module.css';
+import styles from '../styles/MovieDetail.module.css';
 import { Movie } from '../types/movie';
 import { useNavigate, useParams } from 'react-router';
 import { useWishlist } from '../contexts/WishlistProvider';

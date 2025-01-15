@@ -1,5 +1,5 @@
 import { useWishlist } from '../contexts/WishlistProvider';
-import styles from './WishList.module.css';
+import styles from '../styles/WishList.module.css';
 
 const Wishlist = () => {
     const { wishlist, removeFromWishlist } = useWishlist();

@@ -1,0 +1,29 @@
+.wrapper {
+    margin: 2rem 0;
+}
+
+.categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.categoryButton {
+    padding: 0.5rem;
+    border: none;
+    background-color: #2d2d2d;
+    color: #fff;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.categoryButton:hover {
+    background-color: #3b82f6;
+}
+
+.categoryButton.active {
+    background-color: #3b82f6;
+    color: white;
+}

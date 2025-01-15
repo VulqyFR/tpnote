@@ -1,0 +1,28 @@
+.wrapper {
+    padding: 1rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+
+.loading {
+    text-align: center;
+    padding: 3rem;
+    font-size: 1.25rem;
+    color: #6b7280;
+}
+
+.filters {
+    display: flex;
+    gap: 1rem;
+    margin: 1rem;
+    padding: 1rem;
+    background-color: #1a1a1a;
+    border-radius: 0.5rem;
+}
+
+@media (max-width: 640px) {
+    .wrapper {
+        padding: 0.5rem;
+    }
+}

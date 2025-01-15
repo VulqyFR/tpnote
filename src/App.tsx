@@ -1,9 +1,9 @@
 import { Route, Routes } from 'react-router';
-import { FilmList } from './components/FilmList';
-import { MovieDetail } from './components/MovieDetail';
+import { FilmList } from './pages/FilmList';
+import { MovieDetail } from './pages/MovieDetail';
 import { WishlistProvider } from './contexts/WishlistProvider';
-import Wishlist from './components/Wishlist';
-import Navbar from './components/Navbar';
+import Wishlist from './pages/Wishlist';
+import Navbar from './components/navbar/Navbar';
 
 function App() {
     return (

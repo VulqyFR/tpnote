@@ -1,6 +1,6 @@
 import { Link } from 'react-router';
-import { useWishlist } from '../contexts/WishlistProvider';
-import styles from './Navbar.module.css';
+import { useWishlist } from '../../contexts/WishlistProvider';
+import styles from '../../styles/navbar/Navbar.module.css';
 
 const Navbar = () => {
     const { wishlist } = useWishlist();
