@@ -1,4 +1,4 @@
-import styles from '../../styles/movie/MovieDetail.module.css';
+import styles from '../../styles/movie/MovieHeader.module.css';
 
 interface Props {
     title: string;

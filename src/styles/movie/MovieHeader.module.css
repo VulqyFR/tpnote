@@ -1,5 +1,5 @@
 .header {
-    padding: 1rem 2rem;
+    padding: 2rem 0rem;
     display: flex;
     align-items: center;
     gap: 2rem;
@@ -13,10 +13,16 @@
     border-radius: 0.5rem;
     cursor: pointer;
     transition: background-color 0.2s;
+    flex-shrink: 0;
+    min-width: 80px;
 }
 
 .title {
     font-size: 2rem;
     color: white;
     margin: 0;
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
